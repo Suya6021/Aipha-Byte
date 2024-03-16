@@ -65,16 +65,16 @@ if (LocalData) {
 }
 
 export const useStore = create<Store>()((set) => ({
-  FullName: LocalJSON.FullName || "",
-  Title: LocalJSON.Title || "",
-  Summary: LocalJSON.Summary || "",
-  mobile: LocalJSON.mobile || "",
-  email: LocalJSON.email || "",
-  linkedin: LocalJSON.linkedin || "",
-  portfolio: LocalJSON.portfolio || "",
-  Project: LocalJSON.Project || [],
-  Qualifications: LocalJSON.Qualifications || [],
-  Experience: LocalJSON.Experience || [],
+  FullName: LocalJSON?.FullName || "",
+  Title: LocalJSON?.Title || "",
+  Summary: LocalJSON?.Summary || "",
+  mobile: LocalJSON?.mobile || "",
+  email: LocalJSON?.email || "",
+  linkedin: LocalJSON?.linkedin || "",
+  portfolio: LocalJSON?.portfolio || "",
+  Project: LocalJSON?.Project || [],
+  Qualifications: LocalJSON?.Qualifications || [],
+  Experience: LocalJSON?.Experience || [],
   update: (old: storeData) => {
     let temp;
     set((state) => ({ ...state, ...old }));
