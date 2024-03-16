@@ -74,3 +74,9 @@
     @apply bg-background text-foreground;
   }
 }
+.nav-items {
+  @apply p-2 hover:bg-black rounded-md hover:text-white text-xl font-semibold;
+}
+.selected {
+  @apply bg-black text-white;
+}
