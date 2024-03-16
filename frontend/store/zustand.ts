@@ -58,11 +58,17 @@ type Store = {
   update: (old: storeData) => void;
 };
 
-let LocalData = localStorage.getItem("User");
+
 let LocalJSON: storeData;
-if (LocalData) {
-  LocalJSON = JSON.parse(LocalData) as storeData;
+
+if (typeof window !== 'undefined') {
+  // Perform localStorage action
+  let LocalData = localStorage.getItem("User");
+  if (LocalData) {
+    LocalJSON = JSON.parse(LocalData) as storeData;
+  }
 }
+
 
 export const useStore = create<Store>()((set) => ({
   FullName: LocalJSON?.FullName || "",
