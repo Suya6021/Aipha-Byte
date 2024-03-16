@@ -1,105 +1,101 @@
-"use client";
-import Link from "next/link";
-import { useRef, useState } from "react";
-import axios from "axios";
+'use client'
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
+import React from "react";
 
-export default function Home() {
+const page = () => {
   const router = useRouter();
-
-  const fileInput = useRef<HTMLInputElement>(null);
-  const [pdfFile, setPdfFile] = useState<File | undefined>();
-
-  const handleButtonClick = () => {
-    fileInput.current && fileInput.current.click();
-  };
-
-  const handleFileChange = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-
-    setPdfFile(file);
-  };
-
-  const uploadPdf = async () => {
-    const formData = new FormData();
-    formData.append("pdf", pdfFile as Blob);
-
-    try {
-      const response = await axios.post(
-        "http://localhost:8000/api/upload",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-          withCredentials: true,
-        }
-      );
-
-      console.log(response.data);
-    } catch (error) {
-      console.error("Error uploading file:", error);
-    }
-  };
+  const RoleAssignment = () => {};
 
   return (
-    <main className="grid place-items-center min-h-screen">
-      <div className="wrapper bg-white shadow-md rounded-md p-10 flex flex-col gap-10">
-        <div className="Header text-center text-black font-semibold text-2xl flex flex-col gap-1">
-          <h3>Step-1</h3>
-          <h1 className="text-sm font-medium">Upload your Resume</h1>
-        </div>
-        <div className="main-hero flex flex-col gap-4 p-6 items-center border-dashed border rounded-xl border-black">
-          <div className="text-4xl font-semibold w-3/4 text-center">
-            <p>Drag & drop your resume here</p>
+    <div className="flex flex-col justify-center items-center mt-8">
+      <div className=" flex justify-center items-center flex-col bg-white w-[300px]">
+        <Image
+          src="/Aspira.svg"
+          alt="Aspira logo"
+          width={210}
+          height={210}
+        ></Image>
+        <p className="text-muted-foreground tracking-tighter text-sm">
+          #1 Best Job recommdending Site
+        </p>
+      </div>
+      <div className="flex gap-5 justify-around w-full mt-10">
+        <div className=" bg-white p-8">
+          <div>
+            <h2 className="text-3xl font-bold p-3 pb-0 ">
+              Best jobs relevant to your Resume!
+            </h2>
+            <p className="text-[#7D7D7D] text-[10px] font-normal p-2 bg-neutral-200 w-fit rounded-lg ml-4">
+              Trusted by 10,000+ job applicants
+            </p>
           </div>
           <div>
-            <div
-              className="cursor-pointer text-center px-4 py-2 rounded-lg bg-black text-white"
-              onClick={handleButtonClick}
+            <h4 className="text-2xl font-bold p-3">
+              See your best job in 3 simple steps :
+            </h4>
+
+            <p className=" ml-6 text-muted-foreground px-2">
+              {" "}
+              Step 1 : Upload your resume
+            </p>
+            <p className=" ml-6 text-muted-foreground px-2">
+              Step 2 : Verify your details
+            </p>
+            <p className=" ml-6 text-muted-foreground px-2">
+              Step 3 : Know where you are more likely to get hired
+            </p>
+          </div>
+          <div className="mt-8">
+            <Button variant={"ghost"}>How it works</Button>
+            <Button
+              onClick={() => {
+                RoleAssignment();
+                router.push("/applicant/step-1");
+              }}
             >
-              <input
-                type="file"
-                style={{ display: "none" }}
-                ref={fileInput}
-                onChange={handleFileChange}
-                onClick={handleButtonClick}
-              />
-              <p className="">Browse from this device</p>
-            </div>
+              Start Now
+            </Button>
           </div>
         </div>
-        <div className="connect flex flex-col text-center gap-2 w-full font-semibold text-lg">
-          <div className="text-sm">
-            <p>Connect your LinkedIn account: </p>
+        <div className=" bg-white p-8">
+          <div>
+            <h2 className="text-3xl font-bold p-3 pb-0 ">
+              Create your dream team now!
+            </h2>
+            <p className="text-[#7D7D7D] text-[10px] font-normal p-2 bg-neutral-200 w-fit rounded-lg ml-4">
+              Trusted by 10,000+ job applicants
+            </p>
           </div>
-          <div className="flex w-full">
-            <div className="text-white bg-black px-3 py-1 rounded-l-md">
-              Link
-            </div>
-            <div className="w-full">
-              <input
-                type="text"
-                className="w-full px-6 py-1 outline-none bg-[#f4f4f4] rounded-r-md font-normal"
-                placeholder="https://www.linkedin.com/in/himan-miku/"
-              />
-            </div>
+          <div>
+            <h4 className="text-xl font-bold p-3 tracking-tighter">
+              Get to know your best potential candidate in 3 simple steps :
+            </h4>
+
+            <p className=" ml-6 text-muted-foreground px-2">
+              Step 1 : Register your company
+            </p>
+            <p className=" ml-6 text-muted-foreground px-2">
+              Step 2 : Add required job details
+            </p>
+            <p className=" ml-6 text-muted-foreground px-2">
+              Step 3 : Get the best profiles resume matching your job
+              description
+            </p>
           </div>
-        </div>
-        <div className="w-full border-2 rounded-md border-black text-center py-2 hover:cursor-pointer font-semibold">
-          <button
-            onClick={() => {
-              uploadPdf();
-              router.push("/step-2");
-            }}
-          >
-            Next
-          </button>
+          <div className="mt-8">
+            <Button variant={"ghost"}>How it works</Button>
+            <Button
+             onClick={() => {
+              RoleAssignment();
+              router.push("/recruiter/step-1");
+            }}>Start Now</Button>
+          </div>
         </div>
       </div>
-    </main>
+    </div>
   );
-}
+};
+
+export default page;

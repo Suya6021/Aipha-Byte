@@ -21,7 +21,7 @@ export default function RootLayout({
       <body className={dm.className}>
         <AuthContextProvider>
           <div className="flex tracking-wider gap-4 bg-bg flex-col">
-            <Navbar></Navbar>
+            
             {children}
           </div>
         </AuthContextProvider>
