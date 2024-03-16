@@ -1,12 +1,11 @@
 import React from "react";
 import { Button } from "./ui/button";
 import { FaGoogle } from "react-icons/fa6";
-import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
-import app from "@/firebase/config";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { auth } from "@/firebase/config";
 import { useRouter } from "next/navigation";
 
 const LoginButton = () => {
-  const auth = getAuth(app);
   const provider = new GoogleAuthProvider();
   let router = useRouter();
   let login = async () => {
