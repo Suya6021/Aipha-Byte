@@ -1,7 +1,9 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import errorfn from "./middlewares/error";
+import errorfn from "./middleware/error";
+import PDFroute from "./routes/PDFroute";
+import Inforoute from "./routes/Inforoute";
 
 let app = express();
 app.use(cookieParser());
@@ -13,7 +15,8 @@ app.use(
   })
 );
 
-// app.use("/api", route1, route2);
+app.use("/api", PDFroute, Inforoute);
+
 app.use(errorfn);
 
 export default app;

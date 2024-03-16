@@ -93,7 +93,7 @@ export default function Home() {
           <button
             onClick={() => {
               uploadPdf();
-              router.push("/step-1");
+              router.push("/step-2");
             }}
           >
             Next
