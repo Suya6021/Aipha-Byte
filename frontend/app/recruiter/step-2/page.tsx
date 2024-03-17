@@ -2,6 +2,10 @@
 import { ChangeEvent, useState } from "react";
 import { TiPlus } from "react-icons/ti";
 import Skill from "./(components)/Skill";
+import { addDoc, collection, doc } from "firebase/firestore";
+import { db } from "@/firebase/config";
+import { useRouter } from "next/navigation";
+import { CompanyStore } from "@/store/companyIDStore";
 
 export default function RecStep2() {
   const [skills, setSkills] = useState<Array<string>>([]);
@@ -10,6 +14,18 @@ export default function RecStep2() {
   const [rows2, setRows2] = useState<number>(1);
   const [jobDes, setJobDes] = useState<string>("");
   const [jobRes, setJobRes] = useState<string>("");
+  const [jobDetails, setJobDetails] = useState({
+    role: "",
+    location: "",
+    jobPosition: "",
+    salary: "",
+    minQ: "",
+    exp: "",
+    jobType: "",
+  });
+
+  const router = useRouter();
+  const { companyId } = CompanyStore();
 
   const handleTextAreaInput = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setJobDes(e.target.value);
@@ -31,6 +47,41 @@ export default function RecStep2() {
     else if (e.target.scrollHeight >= 160 || jobRes.length >= 145) setRows2(5);
   };
 
+  const handleSubmit = async () => {
+    console.log("Details: ", jobDetails);
+    console.log("Skills: ", skills);
+    console.log("Res: ", jobRes);
+    console.log("Des: ", jobDes);
+
+    await addDoc(collection(doc(db, "companies", companyId), "jobs"), {
+      experience: jobDetails.exp,
+      jobDes,
+      jobRes,
+      jobPosition: jobDetails.jobPosition,
+      jobType: jobDetails.jobType,
+      location: jobDetails.location,
+      minQ: jobDetails.minQ,
+      role: jobDetails.role,
+      salary: jobDetails.salary,
+      skills: skills,
+    });
+
+    setJobDetails({
+      role: "",
+      location: "",
+      jobPosition: "",
+      salary: "",
+      minQ: "",
+      exp: "",
+      jobType: "",
+    });
+    setJobRes("");
+    setJobDes("");
+    setSkills([]);
+
+    // router.push("/recruiter/step-2");
+  };
+
   return (
     <main className="grid place-items-center min-h-screen">
       <div className="wrapper bg-white shadow-md rounded-md p-10 flex flex-col gap-8 w-[40%]">
@@ -46,31 +97,83 @@ export default function RecStep2() {
             <div className="grid grid-cols-2 grid-rows-2 place-content-stretch gap-y-3 gap-x-8">
               <div className="flex flex-col gap-2">
                 <h3 className="text-sm font-semibold">Role</h3>
-                <input type="text" className="px-4 py-1 rounded-md" />
+                <input
+                  value={jobDetails.role}
+                  onChange={(e) => {
+                    setJobDetails({ ...jobDetails, role: e.target.value });
+                  }}
+                  type="text"
+                  className="px-4 py-1 rounded-md"
+                />
               </div>
               <div className="flex flex-col gap-2">
                 <h3 className="text-sm font-semibold">Location</h3>
-                <input type="text" className="px-4 py-1 rounded-md" />
+                <input
+                  value={jobDetails.location}
+                  onChange={(e) => {
+                    setJobDetails({ ...jobDetails, location: e.target.value });
+                  }}
+                  type="text"
+                  className="px-4 py-1 rounded-md"
+                />
               </div>
               <div className="flex flex-col gap-2">
                 <h3 className="text-sm font-semibold">Job Position</h3>
-                <input type="text" className="px-4 py-1 rounded-md" />
+                <input
+                  value={jobDetails.jobPosition}
+                  onChange={(e) => {
+                    setJobDetails({
+                      ...jobDetails,
+                      jobPosition: e.target.value,
+                    });
+                  }}
+                  type="text"
+                  className="px-4 py-1 rounded-md"
+                />
               </div>
               <div className="flex flex-col gap-2">
                 <h3 className="text-sm font-semibold">Salary</h3>
-                <input type="text" className="px-4 py-1 rounded-md" />
+                <input
+                  value={jobDetails.salary}
+                  onChange={(e) => {
+                    setJobDetails({ ...jobDetails, salary: e.target.value });
+                  }}
+                  type="text"
+                  className="px-4 py-1 rounded-md"
+                />
               </div>
               <div className="flex flex-col gap-2">
                 <h3 className="text-sm font-semibold">Min. Qualification</h3>
-                <input type="text" className="px-4 py-1 rounded-md" />
+                <input
+                  value={jobDetails.minQ}
+                  onChange={(e) => {
+                    setJobDetails({ ...jobDetails, minQ: e.target.value });
+                  }}
+                  type="text"
+                  className="px-4 py-1 rounded-md"
+                />
               </div>
               <div className="flex flex-col gap-2">
                 <h3 className="text-sm font-semibold">Experience</h3>
-                <input type="text" className="px-4 py-1 rounded-md" />
+                <input
+                  value={jobDetails.exp}
+                  onChange={(e) => {
+                    setJobDetails({ ...jobDetails, exp: e.target.value });
+                  }}
+                  type="text"
+                  className="px-4 py-1 rounded-md"
+                />
               </div>
               <div className="flex flex-col gap-2">
                 <h3 className="text-sm font-semibold">Job Type</h3>
-                <input type="text" className="px-4 py-1 rounded-md" />
+                <input
+                  value={jobDetails.jobType}
+                  onChange={(e) => {
+                    setJobDetails({ ...jobDetails, jobType: e.target.value });
+                  }}
+                  type="text"
+                  className="px-4 py-1 rounded-md"
+                />
               </div>
             </div>
           </form>
@@ -151,12 +254,7 @@ export default function RecStep2() {
           </div>
         </div>
         <div className="w-full rounded-md bg-black text-white text-center py-2 hover:cursor-pointer font-semibold">
-          <button
-          // onClick={() => {
-          //   uploadPdf();
-          //   router.push("applicant/step-2");
-          // }}
-          >
+          <button onClick={handleSubmit}>
             View best profiles for this job
           </button>
         </div>
