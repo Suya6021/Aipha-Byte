@@ -1,6 +1,8 @@
 
-# Job Recommendation Platform
- #  Overview
+  # Aspira
+     
+  
+  #  Overview
 This project is a job recommendation platform designed to connect job seekers with relevant job opportunities and assist recruiters in finding suitable candidates for their companies. Leveraging modern technologies and tools, this platform aims to streamline the job search and recruitment process.
  
     
