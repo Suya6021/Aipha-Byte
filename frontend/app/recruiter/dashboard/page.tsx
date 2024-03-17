@@ -1,3 +1,10 @@
+import UserView from "./(components)/UserView";
+
 export default function RecStep3() {
-  return <div>RecStep3</div>;
+  return (
+    <div className="">
+      
+      <UserView></UserView>
+    </div>
+  );
 }

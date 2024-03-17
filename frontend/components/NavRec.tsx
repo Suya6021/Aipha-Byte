@@ -21,13 +21,10 @@ const Navbar = () => {
       <ul className="flex gap-14 font-semibold text-base lg:text-lg">
         <li>
           {" "}
-          <Link href="/">Home</Link>
+          <Link href="/recruiter/step-2">Create Job</Link>
         </li>
         <li>
-          <Link href="/add-info">Resume builder</Link>
-        </li>
-        <li>
-          <Link href="/premium">Premium</Link>
+          <Link href="/recruiter/dashboard">Job Status</Link>
         </li>
       </ul>
       <div className=" w-[300px] hidden lg:flex gap-3 p-1  items-center bg-neutral-100 rounded-md">
